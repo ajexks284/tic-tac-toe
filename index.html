@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <header class="score-board">
+        <span class="score-span">X has <span class="x-score" id="xScore">0</span> wins</span>
+        <span class="score-board-span">Score Board</span>
+        <span class="score-span">O has <span class="o-score" id="oScore">0</span> wins</span>
+    </header>
+
+    <h1 class="title">Tic Tac Toe</h1>
+
+    <main class="main">
+        <div class="round-div">Match #<span class="round">1</span></div>
+        <div class="game-board">
+            <div class="current-turn"><span class="who-turn-it-is">X</span>'s turn</div>
+
+            <div class="cells">
+                <div class="cell x"></div>
+                <div class="cell o"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+
+            <button class="restart-btn">Restart</button>
+        </div>
+    </main>
+</body>
+</html>
