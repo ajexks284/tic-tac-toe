@@ -292,3 +292,26 @@
 		width: calc(var(--cell-size) * 3 * 1.4142);
 	}
 }
+
+/* MEDIA QUERIES */
+@media (max-width: 650px) {
+	.score-board {
+		height: 10vh;
+	}
+
+	.score-board-span {
+		display: none;
+	}
+
+	.title {
+		font-size: 2.5rem;
+	}
+
+	:root {
+		--cell-size: 80px;
+	}
+
+	.cells {
+		height: 15rem;
+	}
+}
