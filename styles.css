@@ -9,9 +9,10 @@
 :root {
 	--cell-size: 100px;
 	--mark-size: calc(var(--cell-size) * .5);
+	--strikethrough-color: rgb(250, 251, 251);
 
 	--score-board-color: rgb(22, 160, 133);
-	--current-turn-color: rgb(241, 196, 15);
+	--message-div-color: rgb(241, 196, 15);
 	--restart-btn-color: rgb(231, 76, 60);
 	--cell-border-color: rgb(44, 62, 80);
 	--cell-background-color: rgb(52, 73, 94);
@@ -75,8 +76,8 @@
 	border-radius: 15px;
 }
 
-.current-turn {
-	background-color: var(--current-turn-color);
+.message-div {
+	background-color: var(--message-div-color);
 	width: 100%;
 	height: 64px;
 	border-top-left-radius: 15px;
@@ -131,6 +132,7 @@
 	font-weight: bold;
 
 	cursor: pointer;
+	pointer-events: none;
 }
 
 /* MARKS */
@@ -168,4 +170,125 @@
 	width: calc(var(--mark-size) * .8);
 	height: calc(var(--mark-size) * .8);
 	background-color: var(--cell-background-color);
+}
+
+/* STRIKETHROUGHS */
+.game-board.s0 .strikethrough {
+	width: 0;
+	height: 5px;
+	background-color: var(--strikethrough-color);
+	position: absolute;
+	top: calc(var(--cell-size) / 2);
+	z-index: 10;
+	animation: strikethrough-horizontal .5s linear;
+	animation-fill-mode: forwards;
+}
+
+.game-board.s1 .strikethrough {
+	width: 0;
+	height: 5px;
+	background-color: var(--strikethrough-color);
+	position: absolute;
+	top: calc(var(--cell-size) * 3/2);
+	z-index: 10;
+	animation: strikethrough-horizontal .5s linear;
+	animation-fill-mode: forwards;
+}
+
+.game-board.s2 .strikethrough {
+	width: 0;
+	height: 5px;
+	background-color: var(--strikethrough-color);
+	position: absolute;
+	top: calc(var(--cell-size) * 5/2);
+	z-index: 10;
+	animation: strikethrough-horizontal .5s linear;
+	animation-fill-mode: forwards;
+}
+
+@keyframes strikethrough-horizontal {
+	0% {
+		width: 0;
+	}
+
+	100% {
+		width: calc(var(--cell-size) * 3);
+	}
+}
+
+.game-board.s3 .strikethrough {
+	width: 5px;
+	height: 0;
+	background-color: var(--strikethrough-color);
+	position: absolute;
+	left: calc(var(--cell-size) / 2);
+	z-index: 10;
+	animation: strikethrough-vertical .5s linear;
+	animation-fill-mode: forwards;
+}
+
+.game-board.s4 .strikethrough {
+	width: 5px;
+	height: 0;
+	background-color: var(--strikethrough-color);
+	position: absolute;
+	left: calc(var(--cell-size) * 3/2);
+	z-index: 10;
+	animation: strikethrough-vertical .5s linear;
+	animation-fill-mode: forwards;
+}
+
+.game-board.s5 .strikethrough {
+	width: 5px;
+	height: 0;
+	background-color: var(--strikethrough-color);
+	position: absolute;
+	left: calc(var(--cell-size) * 5/2);
+	z-index: 10;
+	animation: strikethrough-vertical .5s linear;
+	animation-fill-mode: forwards;
+}
+
+@keyframes strikethrough-vertical {
+	0% {
+		height: 0;
+	}
+
+	100% {
+		height: calc(var(--cell-size) * 3);
+	}
+}
+
+.game-board.s6 .strikethrough {
+	width: 0;
+	height: 5px;
+	background-color: var(--strikethrough-color);
+	position: absolute;
+	z-index: 10;
+	transform: rotate(45deg);
+	transform-origin: 0;
+	animation: strikethrough-diagonal .5s linear;
+	animation-fill-mode: forwards;
+}
+
+.game-board.s7 .strikethrough {
+	width: 0;
+	height: 5px;
+	background-color: var(--strikethrough-color);
+	position: absolute;
+	bottom: 0;
+	z-index: 10;
+	transform: rotate(-45deg);
+	transform-origin: 0;
+	animation: strikethrough-diagonal .5s linear;
+	animation-fill-mode: forwards;
+}
+
+@keyframes strikethrough-diagonal {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: calc(var(--cell-size) * 3 * 1.4142);
+	}
 }

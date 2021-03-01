@@ -32,6 +32,14 @@ const Gameboard = (function() {
         })
     }
 
+    function detStrikeThroughClass() {
+        return 's' + WINNING_COMBINATIONS.indexOf(WINNING_COMBINATIONS.find(combination => {
+            return combination.every(index => {
+                return board[index] === currentTurn;
+            })
+        }))
+    }
+
     function checkForDraw() {
         const isAnyCellNull = board.some(cell => cell === null);
         return isAnyCellNull === false && !checkForWin();
@@ -71,6 +79,7 @@ const Gameboard = (function() {
         getCurrentTurn,
         checkForWin,
         checkForDraw,
+        detStrikeThroughClass,
         increaseScore,
         restartGame,
     }
@@ -95,6 +104,7 @@ const UI = (function() {
 
             if (Gameboard.checkForWin()) {
                 displayWinner();
+                setStrikeThrough();
                 increaseScoreOnScreen();
                 return;
             };
@@ -128,6 +138,13 @@ const UI = (function() {
         restartButton.style.pointerEvents = 'all';
     }
 
+    const gameBoard = document.querySelector('.game-board');
+
+    function setStrikeThrough() {
+        let strikeThroughClass = Gameboard.detStrikeThroughClass();
+        gameBoard.classList.add(strikeThroughClass);
+    }
+
     const xScore = document.getElementById('xScore');
     const oScore = document.getElementById('oScore');
 
@@ -145,6 +162,7 @@ const UI = (function() {
         [...cells].forEach(cell => {
             cell.style.pointerEvents = 'all';
         });
+        gameBoard.classList = 'game-board';
         messageDiv.innerText = Gameboard.getCurrentTurn().toUpperCase() + '\'s turn';
         matchRound.innerText = parseInt(matchRound.innerText) + 1;
         restartButton.style.pointerEvents = 'none';
