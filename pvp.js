@@ -49,7 +49,7 @@ const Gameboard = (function() {
         const position = [...UI.cells].indexOf(e.target);
         board[position] = currentTurn;
         UI.renderBoard();
-        e.target.style.pointerEvents = 'none';
+        // e.target.style.pointerEvents = 'none';
     }
 
     function updateCurrentTurn() {
@@ -86,10 +86,13 @@ const Gameboard = (function() {
 })();
 
 const UI = (function() {
+    const cells = document.querySelectorAll('.cell');
+
     function renderBoard() {
         [...cells].forEach(cell => {
             if (Gameboard.board[[...cells].indexOf(cell)] !== null) {
                 cell.classList.add(Gameboard.board[[...cells].indexOf(cell)]);
+                cell.style.pointerEvents = 'none';
             } else {
                 cell.classList.remove('x');
                 cell.classList.remove('o');
@@ -97,7 +100,6 @@ const UI = (function() {
         })
     }
 
-    const cells = document.querySelectorAll('.cell');
     [...cells].forEach(cell => {
         cell.addEventListener('click', (e) => {
             Gameboard.addMarkInArray(e);
