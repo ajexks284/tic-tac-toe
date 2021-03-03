@@ -49,7 +49,6 @@ const Gameboard = (function() {
         const position = [...UI.cells].indexOf(e.target);
         board[position] = currentTurn;
         UI.renderBoard();
-        // e.target.style.pointerEvents = 'none';
     }
 
     function updateCurrentTurn() {
