@@ -91,7 +91,7 @@ const UI = (function() {
         [...cells].forEach(cell => {
             if (Gameboard.board[[...cells].indexOf(cell)] !== null) {
                 cell.classList.add(Gameboard.board[[...cells].indexOf(cell)]);
-                cell.style.pointerEvents = 'none';
+                cell.removeEventListener('click', makeMove);
             } else {
                 cell.classList.remove('x');
                 cell.classList.remove('o');
@@ -100,24 +100,26 @@ const UI = (function() {
     }
 
     [...cells].forEach(cell => {
-        cell.addEventListener('click', (e) => {
-            Gameboard.addMarkInArray(e);
-
-            if (Gameboard.checkForWin()) {
-                displayWinner();
-                setStrikeThrough();
-                increaseScoreOnScreen();
-                return;
-            };
-
-            if (Gameboard.checkForDraw()) {
-                displayDraw();
-                return;
-            }
-
-            updateCurrentTurnOnScreen();
-        });
+        cell.addEventListener('click', makeMove);
     });
+
+    function makeMove(e) {
+        Gameboard.addMarkInArray(e);
+
+        if (Gameboard.checkForWin()) {
+            displayWinner();
+            setStrikeThrough();
+            increaseScoreOnScreen();
+            return;
+        };
+
+        if (Gameboard.checkForDraw()) {
+            displayDraw();
+            return;
+        }
+
+        updateCurrentTurnOnScreen();
+    }
 
     const messageDiv = document.querySelector('.message-div');
 
@@ -129,13 +131,15 @@ const UI = (function() {
     function displayWinner() {
         messageDiv.innerText = `${Gameboard.getCurrentTurn().toUpperCase()} has won!`;
         [...cells].forEach(cell => {
-            cell.style.pointerEvents = 'none';
+            cell.removeEventListener('click', makeMove);
         })
+        restartButton.addEventListener('click', restartGameOnScreen);
         restartButton.style.pointerEvents = 'all';
     }
 
     function displayDraw() {
         messageDiv.innerText = 'It\'s a draw!';
+        restartButton.addEventListener('click', restartGameOnScreen);
         restartButton.style.pointerEvents = 'all';
     }
 
@@ -161,11 +165,12 @@ const UI = (function() {
         Gameboard.restartGame();
         renderBoard();
         [...cells].forEach(cell => {
-            cell.style.pointerEvents = 'all';
+            cell.addEventListener('click', makeMove);
         });
         gameBoard.classList = 'game-board';
         messageDiv.innerText = Gameboard.getCurrentTurn().toUpperCase() + '\'s turn';
         matchRound.innerText = parseInt(matchRound.innerText) + 1;
+        restartButton.removeEventListener('click', restartGameOnScreen);
         restartButton.style.pointerEvents = 'none';
     }
 
