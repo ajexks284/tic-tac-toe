@@ -117,12 +117,7 @@ const UI = (function() {
 
             updateCurrentTurnOnScreen();
 
-            gameBoard.style.pointerEvents = 'none';
-
-            setTimeout(() => {
-                makeAIMove();
-                gameBoard.style.pointerEvents = 'all';
-            }, 750);
+            makeAIMove();
         });
     });
 
